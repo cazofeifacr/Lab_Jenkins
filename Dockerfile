@@ -1,5 +1,5 @@
-
-FROM --platform=linux/amd64 jenkins/jenkins:2.387.1
+ARG VERSION_SERVER="2.426.3-jdk17"
+FROM --platform=linux/amd64 jenkins/jenkins:$VERSION_SERVER
 USER root
 RUN apt-get update && apt-get install -y lsb-release
 RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
