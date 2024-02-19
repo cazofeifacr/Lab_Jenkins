@@ -1,7 +1,7 @@
 ARG VERSION_SERVER="2.426.3-jdk17"
 FROM --platform=linux/amd64 jenkins/jenkins:$VERSION_SERVER
 USER root
-RUN apt-get update && apt-get install -y lsb-release
+RUN apt-get update && apt-get install -y lsb-release python3-pip git zip unzip curl file pip wget 
 RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
   https://download.docker.com/linux/debian/gpg
 RUN echo "deb [arch=$(dpkg --print-architecture) \
