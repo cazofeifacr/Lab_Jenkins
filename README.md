@@ -71,6 +71,8 @@ From Browser
 From Container 
 
 > cat /var/jenkins_home/secrets/initialAdminPassword
+or 
+> docker exec myjenkins-blueocean cat /var/jenkins_home/secrets/initialAdminPassword
 
 From Browser 
 
