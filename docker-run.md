@@ -22,3 +22,14 @@ docker run \
 - To run the container in the **background** insert ``` --detach ``` after docker run.
 - To automatically **start the container on restart** insert ```--restart always``` after docker run.
 - To automatically **start the container unless it has been stopped** explicitly insert ```--restart unless-stopped``` after docker run.
+
+
+# Setup Docker Agent 
+
+> docker pull alpine/socat
+> 
+> docker run -d --restart=always -p 127.0.0.1:2376:2375 --network jenkins -v /var/run/docker.sock:/var/run/docker.sock alpine/socat tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+
+> docker inspect <container_id> | grep IPAddress
+
+> docker pull cazofeifacr/myjenkinsagents:python

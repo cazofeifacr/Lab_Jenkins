@@ -71,9 +71,49 @@ From Browser
 From Container 
 
 > cat /var/jenkins_home/secrets/initialAdminPassword
+
 or 
+
 > docker exec myjenkins-blueocean cat /var/jenkins_home/secrets/initialAdminPassword
 
 From Browser 
 
 > Copy Password *********
+
+# Setup Docker Agent 
+
+## Setup A Dockerfile 
+
+File located at ```/Docker_Agent/Dockerfile```
+
+## Create build and push image 
+
+> docker login -u "cazofeifacr" -p "********" docker.io
+
+```
+VERSION_CLIENT="alpine-jdk17"
+docker build -t cazofeifacr/myjenkins-agent-python:$VERSION_CLIENT -t cazofeifacr/myjenkins-agent-python:latest .
+```
+
+```
+ docker push cazofeifacr/myjenkins-agent-python:latest
+ docker push cazofeifacr/myjenkins-agent-python:alpine-jdk17
+```
+
+# Installation Docker Reference:
+https://www.jenkins.io/doc/book/installing/docker/
+
+## Bridge 
+https://hub.docker.com/r/alpine/socat/
+
+
+```
+docker pull alpine/socat
+docker run -d --restart=always -p 127.0.0.1:2376:2375 --network jenkins -v /var/run/docker.sock:/var/run/docker.sock alpine/socat tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
+```
+
+>  docker inspect <Container_ID> | grep IPAddress
+
+
+### alpine/socat container to forward traffic from Jenkins to Docker Desktop on Host Machine
+https://stackoverflow.com/questions/47709208/how-to-find-docker-host-uri-to-be-used-in-jenkins-docker-plugin
