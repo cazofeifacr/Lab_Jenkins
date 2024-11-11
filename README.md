@@ -1,18 +1,18 @@
 # Lab_Jenkins
 
+# Define Docker Infra
 
-# Define Docker Infra 
 ```
     docker network create jenkins
     docker network list
     docker network inspect jenkins
 ```
 
-# Define Docker image 
+# Define Docker image
 
 ```
 
-ARG VERSION_SERVER="2.426.3-jdk17"
+ARG VERSION_SERVER="2.484-jdk17"
 
 FROM --platform=linux/amd64 jenkins/jenkins:$VERSION_SERVER
 USER root
@@ -29,16 +29,16 @@ RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
 
 ```
 
-# Build Docker image 
+# Build Docker image
 
 ```
-docker build -t myjenkins-blueocean:2.426.3-jdk17 -t myjenkins-blueocean:latest .
+docker build -t myjenkins-blueocean:2.484-jdk17 -t myjenkins-blueocean:latest .
 ```
 
 # Host Container Locally
 
 ```
-VERSION_SERVER="2.426.3-jdk17"
+VERSION_SERVER="2.484-jdk17"
 
 docker run \
   --name myjenkins-blueocean \
@@ -62,33 +62,33 @@ docker run \
 docker exec -it myjenkins-blueocean bash
 ```
 
-# Setup Server 
+# Setup Server
 
-From Browser 
+From Browser
 
 > http://localhost:8080
 
-From Container 
+From Container
 
 > cat /var/jenkins_home/secrets/initialAdminPassword
 
-or 
+or
 
 > docker exec myjenkins-blueocean cat /var/jenkins_home/secrets/initialAdminPassword
 
-From Browser 
+From Browser
 
-> Copy Password *********
+> Copy Password ****\*****
 
-# Setup Docker Agent 
+# Setup Docker Agent
 
-## Setup A Dockerfile 
+## Setup A Dockerfile
 
-File located at ```/Docker_Agent/Dockerfile```
+File located at `/Docker_Agent/Dockerfile`
 
-## Create build and push image 
+## Create build and push image
 
-> docker login -u "cazofeifacr" -p "********" docker.io
+> docker login -u "cazofeifacr" -p "**\*\*\*\***" docker.io
 
 ```
 VERSION_CLIENT="alpine-jdk17"
@@ -101,19 +101,20 @@ docker build -t cazofeifacr/myjenkins-agent-python:$VERSION_CLIENT -t cazofeifac
 ```
 
 # Installation Docker Reference:
+
 https://www.jenkins.io/doc/book/installing/docker/
 
-## Bridge 
-https://hub.docker.com/r/alpine/socat/
+## Bridge
 
+https://hub.docker.com/r/alpine/socat/
 
 ```
 docker pull alpine/socat
 docker run -d --restart=always -p 127.0.0.1:2376:2375 --network jenkins -v /var/run/docker.sock:/var/run/docker.sock alpine/socat tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock
 ```
 
->  docker inspect <Container_ID> | grep IPAddress
-
+> docker inspect <Container_ID> | grep IPAddress
 
 ### alpine/socat container to forward traffic from Jenkins to Docker Desktop on Host Machine
+
 https://stackoverflow.com/questions/47709208/how-to-find-docker-host-uri-to-be-used-in-jenkins-docker-plugin

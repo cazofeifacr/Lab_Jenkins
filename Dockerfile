@@ -1,4 +1,4 @@
-ARG VERSION_SERVER="2.426.3-jdk17"
+ARG VERSION_SERVER="2.484-jdk17"
 FROM --platform=linux/amd64 jenkins/jenkins:$VERSION_SERVER
 USER root
 RUN apt-get update && apt-get install -y lsb-release python3-pip git zip unzip curl file pip wget 

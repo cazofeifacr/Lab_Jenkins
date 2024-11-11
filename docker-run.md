@@ -1,7 +1,7 @@
 docker network create jenkins
 
 ```
-VERSION_SERVER="2.426.3-jdk17"
+VERSION_SERVER="2.484-jdk17"
 
 docker run \
   --name jenkins-blueocean \
